@@ -1,5 +1,9 @@
 # twitter-feed
 
+# Project Assumption:
+  * The tweet file and user file will be past as arguments to the main.
+    - In this order: tweet.txt and user.txt
+
 # Project setup:
 
       ## Prerequisite:
@@ -17,5 +21,5 @@
       3. Terminal/Command line
         - gradle build (build project)
         - gradle test (running tests)
-      4. jar -jar twitter-feed-app-0.0.1.jar
+        - gradle runApplication (running the application)
       
