@@ -1,0 +1,57 @@
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+version = '1.0.0'
+
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+    compile 'org.slf4j:slf4j-api:1.7.12'
+    testCompile 'org.hamcrest:hamcrest-core:1.3'
+    testCompile 'org.hamcrest:hamcrest-library:1.3'
+}
+
+
+jar {
+    manifest {
+        def classpath = configurations.runtime.collect { jarfile ->
+            '../lib/' + jarfile.getName()
+        }.join(' ')
+
+        attributes 'Main-Class': 'com.bongani.Main'
+    }
+}
+sourceSets {
+    main {
+        java {
+            srcDir 'src/main/'
+        }
+    }
+    unitTest {
+        java {
+            srcDir 'src/test'
+        }
+    }
+}
+
+
+task unitTest(type: Test) {
+    testClassesDir = sourceSets.unitTest.output.classesDir
+    classpath = sourceSets.unitTest.runtimeClasspath
+}
+
+task wrapper(type: Wrapper) {
+  gradleVersion = '2.13'
+  distributionUrl = 'http://services.gradle.org/distributions/gradle-2.13-all.zip'
+}
+
+
+task runApplication(type: JavaExec) {
+    main 'com.bongani.Main'
+    args 'src/main/resources/dataFiles/tweet.txt', 'src/main/resources/dataFiles/user.txt'
+    classpath = sourceSets.main.runtimeClasspath
+}
