@@ -1,4 +1,4 @@
-# twitter-feed
+# Twitter User Activity Feeds
 
 # Project Assumption:
   * The tweet file and user file will be past as arguments to the main.
