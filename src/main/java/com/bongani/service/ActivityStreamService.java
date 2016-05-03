@@ -71,9 +71,11 @@ public class ActivityStreamService {
                 streamActivityMap.put(currentUser.getName(), tweetList);
             }
 
-        } catch (IOException i) {
+        } catch (IOException e) {
             LOG.error("*********************************************");
             LOG.error("Unable to execute tweets correctly.");
+            LOG.error(e.getMessage());
+            LOG.error(e.getStackTrace().toString());
             LOG.error("**********************************************");
         }
         LOG.info("Tweet activity stream is formatter successfully.");
