@@ -1,8 +1,8 @@
 package fileProcesser;
 
 import com.bongani.exception.InvalidFileException;
-import com.bongani.fileProcesser.IProcessTweetFile;
-import com.bongani.fileProcesser.impl.ProcessTweetFile;
+import com.bongani.fileProcesser.ProcessTweetFile;
+import com.bongani.fileProcesser.impl.ProcessTweetFileImpl;
 import com.bongani.model.Tweet;
 import org.junit.Test;
 
@@ -20,7 +20,7 @@ public class ProcessTweetFileTest {
         final String tweetFilePath = "src/main/resources/dataFiles/tweet.txt";
         Tweet expectedTweet = new Tweet("Alan", "If you have a procedure with 10 parameters, you probably missed some.");
 
-        IProcessTweetFile tweetsFile = new ProcessTweetFile();
+        ProcessTweetFile tweetsFile = new ProcessTweetFileImpl();
         List<Tweet> tweets = tweetsFile.processTweet(new File(tweetFilePath));
         assertThat(tweets.size(), greaterThan(0));
         assertThat(tweets.get(0).getOwner(), is(expectedTweet.getOwner()));
@@ -30,7 +30,7 @@ public class ProcessTweetFileTest {
     public void should_return_error_message_given_invalid_file_path() throws Exception {
         final String tweetFilePath = "src/main/resources/dataFiles/tweetss.txt";
 
-        IProcessTweetFile tweetsFile = new ProcessTweetFile();
+        ProcessTweetFile tweetsFile = new ProcessTweetFileImpl();
         tweetsFile.processTweet(new File(tweetFilePath));
     }
 }

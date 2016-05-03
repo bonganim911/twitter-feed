@@ -1,7 +1,7 @@
 package service;
 
-import com.bongani.fileProcesser.impl.ProcessTweetFile;
-import com.bongani.fileProcesser.impl.ProcessUserFile;
+import com.bongani.fileProcesser.impl.ProcessTweetFileImpl;
+import com.bongani.fileProcesser.impl.ProcessUserFileImpl;
 import com.bongani.service.ActivityStreamService;
 import org.junit.Test;
 
@@ -16,8 +16,8 @@ public class activityStreamServiceTest {
     
     @Test
     public void should_return_format_tweet_activity_given_files() throws Exception {
-        ActivityStreamService activityStreamService = new ActivityStreamService(new ProcessTweetFile(), new ProcessUserFile());
-        Map<String, ArrayList<String>> expected = activityStreamService.formatActivityStream(new File("src/main/resources/dataFiles/tweet.txt"), new File("src/main/resources/dataFiles/user.txt"));
+        ActivityStreamService activityStreamService = new ActivityStreamService(new ProcessTweetFileImpl(), new ProcessUserFileImpl());
+        Map<String, ArrayList<String>> expected = activityStreamService.generateActivityFeeds(new File("src/main/resources/dataFiles/tweet.txt"), new File("src/main/resources/dataFiles/user.txt"));
         assertThat(expected.isEmpty(), is(false));
     }
     

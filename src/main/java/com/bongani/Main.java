@@ -1,7 +1,7 @@
 package com.bongani;
 
-import com.bongani.fileProcesser.impl.ProcessTweetFile;
-import com.bongani.fileProcesser.impl.ProcessUserFile;
+import com.bongani.fileProcesser.impl.ProcessTweetFileImpl;
+import com.bongani.fileProcesser.impl.ProcessUserFileImpl;
 import com.bongani.service.ActivityStreamService;
 import org.apache.log4j.Logger;
 
@@ -14,7 +14,7 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         if (args.length == 2) {
-            ActivityStreamService activityStreamService = new ActivityStreamService(new ProcessTweetFile(), new ProcessUserFile());
+            ActivityStreamService activityStreamService = new ActivityStreamService(new ProcessTweetFileImpl(), new ProcessUserFileImpl());
             activityStreamService.displayTweets(new File(args[0]), new File(args[1]));
         }else{
             LOG.error("**************************");

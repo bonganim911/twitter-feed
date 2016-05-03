@@ -1,8 +1,8 @@
 package fileProcesser;
 
 import com.bongani.exception.InvalidFileException;
-import com.bongani.fileProcesser.IProcessUserFile;
-import com.bongani.fileProcesser.impl.ProcessUserFile;
+import com.bongani.fileProcesser.ProcessUserFile;
+import com.bongani.fileProcesser.impl.ProcessUserFileImpl;
 import com.bongani.model.UserAccount;
 import org.junit.Test;
 
@@ -20,7 +20,7 @@ public class ProcessUserFileTest {
     public void should_return_error_message_given_invalid_file_path() throws Exception {
         final String userFilePath = "src/main/resources/dataFiles/invalidUser.txt";
 
-        IProcessUserFile userFile = new ProcessUserFile();
+        ProcessUserFile userFile = new ProcessUserFileImpl();
         userFile.processUserAccount(new File(userFilePath));
     }
 
@@ -32,7 +32,7 @@ public class ProcessUserFileTest {
 
         UserAccount userAccount = new UserAccount("Alan", follower);
 
-        IProcessUserFile userFile = new ProcessUserFile();
+        ProcessUserFile userFile = new ProcessUserFileImpl();
         Set<UserAccount> userAccounts = userFile.processUserAccount(new File(userFilePath));
         assertThat(userAccounts.size(), greaterThan(0));
         assertTrue(userAccounts.contains(userAccount));

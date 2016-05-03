@@ -1,9 +1,9 @@
 package com.bongani.service;
 
-import com.bongani.fileProcesser.IProcessTweetFile;
-import com.bongani.fileProcesser.IProcessUserFile;
-import com.bongani.fileProcesser.impl.ProcessTweetFile;
-import com.bongani.fileProcesser.impl.ProcessUserFile;
+import com.bongani.fileProcesser.ProcessTweetFile;
+import com.bongani.fileProcesser.ProcessUserFile;
+import com.bongani.fileProcesser.impl.ProcessTweetFileImpl;
+import com.bongani.fileProcesser.impl.ProcessUserFileImpl;
 import com.bongani.model.Tweet;
 import com.bongani.model.UserAccount;
 import org.apache.log4j.Logger;
@@ -15,18 +15,18 @@ import java.util.*;
 public class ActivityStreamService {
     private static final Logger LOG = Logger.getLogger(ActivityStreamService.class);
 
-    private IProcessTweetFile tweetProc;
-    private IProcessUserFile usersProc;
+    private ProcessTweetFile tweetProc;
+    private ProcessUserFile usersProc;
 
-    public ActivityStreamService(ProcessTweetFile processTweetFile, ProcessUserFile processUserFile) {
-        this.tweetProc = processTweetFile;
-        this.usersProc = processUserFile;
+    public ActivityStreamService(ProcessTweetFileImpl processTweetFileImpl, ProcessUserFileImpl processUserFileImpl) {
+        this.tweetProc = processTweetFileImpl;
+        this.usersProc = processUserFileImpl;
     }
 
     public void displayTweets(File tweetsFile, File userFile) {
         LOG.info("Execution of user activity twitter feed started...");
 
-        Map<String, ArrayList<String>> tweetsMap = formatActivityStream(tweetsFile, userFile);
+        Map<String, ArrayList<String>> tweetsMap = generateActivityFeeds(tweetsFile, userFile);
 
         sortMap(tweetsMap).forEach((name, list) -> {
             System.out.println(name);
@@ -50,7 +50,7 @@ public class ActivityStreamService {
         return treeMap;
     }
 
-    public Map<String, ArrayList<String>> formatActivityStream(File tweetsFile, File userFile) {
+    public Map<String, ArrayList<String>> generateActivityFeeds(File tweetsFile, File userFile) {
         Map<String, ArrayList<String>> streamActivityMap = new TreeMap<>();
         ArrayList<String> tweetList;
 
