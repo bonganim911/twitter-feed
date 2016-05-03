@@ -20,7 +20,6 @@ public class InputStreamReaderHelper {
     }
 
     private InputStreamReader getInputStreamReader(File file) throws FileNotFoundException {
-
         String FILE_ENCODING_TYPE = "US-ASCII";
         return new InputStreamReader(
                         new FileInputStream(file), Charset.forName(FILE_ENCODING_TYPE));

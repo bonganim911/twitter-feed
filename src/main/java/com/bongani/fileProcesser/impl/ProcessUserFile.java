@@ -4,6 +4,7 @@ import com.bongani.exception.InvalidSyntaxException;
 import com.bongani.fileProcesser.IProcessUserFile;
 import com.bongani.helper.InputStreamReaderHelper;
 import com.bongani.model.UserAccount;
+import org.apache.log4j.Logger;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,9 +13,12 @@ import java.util.*;
 
 public class ProcessUserFile implements IProcessUserFile {
     private static final String FOLLOWS = "follows";
+    private static final Logger LOG = Logger.getLogger(ProcessUserFile.class);
 
     @Override
     public Set<UserAccount> processUserAccount(File userFile) throws IOException {
+        LOG.info("Started the processing of a user file");
+
         LineNumberReader lineNumberReader;
 
         Map<String, UserAccount> userAccountHashMap = new HashMap<>();
@@ -51,6 +55,8 @@ public class ProcessUserFile implements IProcessUserFile {
 
         Set<UserAccount> accounts = new TreeSet<>();
         accounts.addAll(userAccountHashMap.values());
+
+        LOG.info("Completed the processing of a users");
 
         return accounts;
     }

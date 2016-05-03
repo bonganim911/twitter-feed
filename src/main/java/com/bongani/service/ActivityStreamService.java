@@ -6,13 +6,14 @@ import com.bongani.fileProcesser.impl.ProcessTweetFile;
 import com.bongani.fileProcesser.impl.ProcessUserFile;
 import com.bongani.model.Tweet;
 import com.bongani.model.UserAccount;
+import org.apache.log4j.Logger;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
 public class ActivityStreamService {
-//    private static final Logger LOG = LoggerFactory.getLogger(ActivityStreamService.class);
+    private static final Logger LOG = Logger.getLogger(ActivityStreamService.class);
 
     private IProcessTweetFile tweetProc;
     private IProcessUserFile usersProc;
@@ -23,15 +24,18 @@ public class ActivityStreamService {
     }
 
     public void displayTweets(File tweetsFile, File userFile) {
+        LOG.info("Execution of user activity twitter feed started...");
+
         Map<String, ArrayList<String>> tweetsMap = formatActivityStream(tweetsFile, userFile);
 
-        sortMap(tweetsMap).forEach((name,list)->{
+        sortMap(tweetsMap).forEach((name, list) -> {
             System.out.println(name);
             list.forEach(System.out::println);
         });
+        LOG.info("Execution of user activity twitter ended....");
     }
 
-    private Map<String, ArrayList<String>> sortMap(Map<String, ArrayList<String>> unsortedTweetMap){
+    private Map<String, ArrayList<String>> sortMap(Map<String, ArrayList<String>> unsortedTweetMap) {
         Map<String, ArrayList<String>> treeMap = new TreeMap<>(
                 new Comparator<String>() {
 
@@ -41,7 +45,7 @@ public class ActivityStreamService {
                     }
 
                 });
-       treeMap.putAll(unsortedTweetMap);
+        treeMap.putAll(unsortedTweetMap);
 
         return treeMap;
     }
@@ -67,10 +71,12 @@ public class ActivityStreamService {
                 streamActivityMap.put(currentUser.getName(), tweetList);
             }
 
-        } catch (IOException io) {
-//            LOG.error("Unable to process file correctly.");
+        } catch (IOException i) {
+            LOG.error("*********************************************");
+            LOG.error("Unable to execute tweets correctly.");
+            LOG.error("**********************************************");
         }
-
+        LOG.info("Tweet activity stream is formatter successfully.");
         return streamActivityMap;
     }
 }
